@@ -14,7 +14,7 @@ class VignetteController extends Controller
     public function index()
     {
         return response()->json([
-            "vignettes" => Vignette::with("vehicles")->get()
+            "vignettes" => Vignette::with("vehicle")->get()
         ]);
     }
 

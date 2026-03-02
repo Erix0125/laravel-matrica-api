@@ -22,6 +22,6 @@ class Vignette extends Model
 
     public function vehicle()
     {
-        return $this->hasMany(Vehicle::class);
+        return $this->belongsTo(Vehicle::class);
     }
 }

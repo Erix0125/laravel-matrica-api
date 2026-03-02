@@ -15,8 +15,8 @@ class Vehicle extends Model
         "plate_number"
     ];
 
-    public function vignette()
+    public function vignettes()
     {
-        return $this->belongsTo(Vignette::class);
+        return $this->hasMany(Vignette::class);
     }
 }
