@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class VignetteRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        if ($this->method() === 'PUT' || $this->method() === 'PATCH') {
+            return [
+                "vehicle_id" => "sometimes|required|integer|exists:vehicles,id",
+                "type" => "sometimes|required|string|max:10",
+                "category" => "sometimes|required|string|max:50",
+                "region" => "nullable|string|max:50",
+                "year" => "sometimes|required|integer|min:2000|max:2100",
+                "valid_from" => "nullable|date",
+                "valid_to" => "nullable|date|after_or_equal:valid_from"
+            ];
+        }
+        return [
+            "vehicle_id" => "required|integer|exists:vehicles,id",
+            "type" => "required|string|max:10",
+            "category" => "required|string|max:50",
+            "region" => "nullable|string|max:50",
+            "year" => "required|integer|min:2000|max:2100",
+            "valid_from" => "nullable|date",
+            "valid_to" => "nullable|date|after_or_equal:valid_from"
+        ];
+    }
+}
